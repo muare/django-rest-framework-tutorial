@@ -1,4 +1,8 @@
+"""
+model for snippet
+"""
 from django.db import models
+from django.conf import settings
 from pygments.lexers import get_all_lexers
 from pygments.styles import get_all_styles
 from pygments.lexers import get_lexer_by_name
@@ -11,6 +15,9 @@ STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 
 class Snippet(models.Model):
+    """
+    convert highlight during save instead of passing by client
+    """
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
     code = models.TextField()
@@ -22,7 +29,7 @@ class Snippet(models.Model):
                              default='friendly',
                              max_length=100)
 
-    owner = models.ForeignKey('auth.User',
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               related_name='snippets',
                               on_delete=models.CASCADE)
     highlighted = models.TextField(blank=True)

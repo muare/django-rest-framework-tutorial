@@ -1,3 +1,6 @@
+"""
+permission defnition for access control
+"""
 from rest_framework import permissions
 
 
@@ -10,3 +13,4 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         return obj.owner == request.user
+        
