@@ -28,6 +28,9 @@ class SnippetViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     def highlight(self, request, *args, **kwargs):
+        """
+        highlight
+        """
         snippet = self.get_object()
         return Response(snippet.highlighted)
 
@@ -38,6 +41,6 @@ class SnippetViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This viewset automatically provides `list` and `retrieve` actions.
-    """    
+    """
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
